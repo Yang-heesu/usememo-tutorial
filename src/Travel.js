@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 
 function Travel() {
   const [number, setNumber] = useState(0);
@@ -6,9 +6,17 @@ function Travel() {
 
   // const location = isKorea ? '한국' : '외국';
 
-  const location = {
-    country : isKorea ? '한국' : '외국'
-  }
+  // const location = {
+  //   country : isKorea ? '한국' : '외국'
+  // }
+
+  //isKorea가 바뀔 때만 메모라이징된 값을 업데이트.
+  //isKorea가 바뀔 때만 useEffect호출.
+  const location = useMemo(() => {
+    return {
+      country : isKorea ? '한국' : '외국'
+    }
+  }, [isKorea]);
 
   //location이 원시타입일 때는 비행기 타자 버튼을 누를 때만 호출된다.
   //객체타입일 때는 렌더링될 때마다 변수에 담긴 객체의 주소가 바뀌기 때문에
